@@ -1,7 +1,9 @@
 package com.example.jetpackcomposesample.ui
 
+import androidx.compose.foundation.Image
 import androidx.compose.foundation.isSystemInDarkTheme
 import androidx.compose.foundation.layout.*
+import androidx.compose.foundation.shape.CircleShape
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.Email
 import androidx.compose.material.icons.filled.Face
@@ -10,11 +12,15 @@ import androidx.compose.material3.*
 import androidx.compose.runtime.*
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.draw.clip
 import androidx.compose.ui.graphics.Color
+import androidx.compose.ui.res.painterResource
+import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.Dp
 import androidx.compose.ui.unit.dp
 import androidx.navigation.compose.currentBackStackEntryAsState
 import androidx.navigation.compose.rememberNavController
+import com.example.jetpackcomposesample.R
 import com.example.jetpackcomposesample.data.AppContainer
 import com.example.jetpackcomposesample.ui.theme.JetpackComposeSampleTheme
 import com.example.jetpackcomposesample.utils.WindowSize
@@ -85,6 +91,8 @@ fun MyApp(
                         Button(onClick = { scope.launch { drawerState.open() } }) {
                             Text("Click to open")
                         }
+
+                        MessageCard("Kotlin Daisuki")
                     }
                 }
             )
@@ -123,3 +131,28 @@ fun rememberContentPaddingForScreen(additionalTop: Dp = 0.dp) =
         applyStart = false,
         additionalTop = additionalTop
     )
+
+@Preview
+@Composable
+fun MessageCardPreview() {
+    MessageCard("JetpackCompose-San")
+}
+
+@Composable
+fun MessageCard(name: String) {
+    Row {
+        Image(
+            painter = painterResource(id = R.drawable.post_4),
+            contentDescription = "Contact profile picture",
+            modifier = Modifier
+                .size(40.dp)
+                .clip(CircleShape)
+        )
+        Spacer(Modifier.width(8.dp))
+        Column {
+            Text(text = "Hello $name!")
+            Text(text = "Welcome to Jetpack Compose")
+        }
+    }
+
+}
